@@ -1,5 +1,7 @@
 const express = require('express');
 
+const User = require('./userDb');
+
 const router = express.Router();
 
 router.post('/', (req, res) => {
