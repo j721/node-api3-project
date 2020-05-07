@@ -49,6 +49,7 @@ router.put('/:id', validatePostId, validatePostId, (req, res) => {
 
 
 // custom middleware
+// validates the post id on every request that expects a post id parameter
 function validatePostId(req, res, next) {
   // do your magic!
   const { id } = req.params;
@@ -66,7 +67,9 @@ function validatePostId(req, res, next) {
 })
 }
 
-//custom middleware
+
+
+// validates the body on a request to create a new post
 function validatePost(req, res, next) {
   // do your magic!
   if(!req.body){

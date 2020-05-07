@@ -92,8 +92,10 @@ router.put('/:id', validateUserId,validateUser, (req, res) => {
   })
 });
 
+
 //custom middleware
 
+// validates the user id on every request that expects a user id parameter
 function validateUserId(req, res, next) {
   // do your magic!
   const { id } = req.params;
@@ -120,6 +122,7 @@ function validateUser(req, res, next) {
   }
 }
 
+//validates the body on a request to create a new post
 function validatePost(req, res, next) {
   // do your magic!
   if(!req.body){
