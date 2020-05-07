@@ -83,7 +83,7 @@ router.delete('/:id', validateUserId, (req, res) => {
 //PUT request - update user by id
 router.put('/:id', validateUserId,validateUser, (req, res) => {
   // do your magic!
-  const { id } = req.params;
+  const id = req.params.id;
   User.update(id, req.body)
   .then((user)=>{
     res.status(200).json(user)
