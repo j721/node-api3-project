@@ -66,6 +66,7 @@ function validatePostId(req, res, next) {
 })
 }
 
+//custom middleware
 function validatePost(req, res, next) {
   // do your magic!
   if(!req.body){
@@ -81,5 +82,5 @@ module.exports = router;
 
 
 /* if(!Object.keys(req.body).length){
-  res.status(400).json({error: "missing pst data"})
+  res.status(400).json({error: "missing post data"})
 } */
