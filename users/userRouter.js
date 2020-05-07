@@ -31,9 +31,9 @@ router.post('/:id/posts', validatePost, validateUserId, (req, res) => {
 });
 
 //GET request - get all the users
-router.get('/' (req, res) => {
+router.get('/', (req, res) => {
   // do your magic!
-  User.get()
+  User.get()  
   .then((users)=>{
     res.status(200).json(users)
   })
