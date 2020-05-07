@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.use(express.json());
 
+//GET REQUEST - gets an array of all the posts
 router.get('/', (req, res) => {
   // do your magic!
 Post.get()
@@ -11,15 +12,17 @@ Post.get()
     res.status(200).json(users);
   })
   .catch((err)=>{
-    res.status(400).json({errorMessage:"there was an error."})
+    res.status(500).json({errorMessage:" error in retrieving posts data."})
   })
 });
 
+//GET request - get post by id
 router.get('/:id',validatePostId, (req, res) => {
-//   // do your magic!
+  // do your magic!
   res.status(200).json(req.post)
 })
 
+//DELETE request- delete post by id
 router.delete('/:id', validatePostId, (req, res) => {
   // do your magic!
   Post.remove(req.params.id)
@@ -31,6 +34,7 @@ router.delete('/:id', validatePostId, (req, res) => {
   })
 });
 
+//PUT request- update post by id
 router.put('/:id', validatePostId, (req, res) => {
   // do your magic!
   const { id } = req.params;
@@ -43,8 +47,8 @@ router.put('/:id', validatePostId, (req, res) => {
   })
 });
 
-// custom middleware
 
+// custom middleware
 function validatePostId(req, res, next) {
   // do your magic!
   const { id } = req.params;
@@ -62,4 +66,20 @@ function validatePostId(req, res, next) {
 })
 }
 
+function validatePost(req, res, next) {
+  // do your magic!
+  if(!req.body){
+    res.status(400).json({error: "missing post data." })
+  }else if (!req.body.text){
+    res.status(400).json({errorMessage:"missing required text field."})
+  }else{
+    next()
+  }
+}
+
 module.exports = router;
+
+
+/* if(!Object.keys(req.body).length){
+  res.status(400).json({error: "missing pst data"})
+} */

@@ -8,7 +8,6 @@ router.use(express.json());
 
 router.post('/', (req, res) => {
   // do your magic!
-
   User.insert(req.body)
   .then((user)=>{
     res.status(201).json(user)
