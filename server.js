@@ -23,3 +23,7 @@ function logger(req, res, next) {
 }
 
 module.exports = server;
+
+/*const cors = require('cors)
+  server.use(cors());
+*/
