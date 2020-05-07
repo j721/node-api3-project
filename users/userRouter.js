@@ -6,7 +6,8 @@ const Post = require("../posts/postDb");
 
 router.use(express.json());
 
-router.post('/', (req, res) => {
+//POST request- add a new User
+router.post('/', validateUser, (req, res) => {
   // do your magic!
   User.insert(req.body)
   .then((user)=>{
@@ -17,30 +18,78 @@ router.post('/', (req, res) => {
   })
 });
 
-router.post('/:id/posts', (req, res) => {
+//POST request - add a new post
+router.post('/:id/posts', validatePost, validateUserId, (req, res) => {
   // do your magic!
- 
-
+ Post.insert(req.body)
+ .then((post)=>{
+   res.status(201).json(post);
+ })
+.catch((err)=>{
+  res.status(500).json({error: "sorry, there was a problem in adding your post."})
+})
 });
 
-router.get('/', (req, res) => {
+//GET request - get all the users
+router.get('/' (req, res) => {
   // do your magic!
+  User.get()
+  .then((users)=>{
+    res.status(200).json(users)
+  })
+  .catch((err)=>{
+    res.status(500).json({error: "sorry, there was problem getting users."})
+  })
 });
 
-router.get('/:id', (req, res) => {
+//GET REQUEST - get user by id
+router.get('/:id', validateUserId, (req, res) => {
   // do your magic!
+  User.get()
+  .then(users=>{
+    res.status(200).json(users)
+  })
+  .catch((err)=>{
+    res.status(500).json({errorMessage: "error in retrieving array of users"})
+  })
 });
 
-router.get('/:id/posts', (req, res) => {
+//GET request - get posts by user id
+router.get('/:id/posts', validateUserId, (req, res) => {
   // do your magic!
+  const userId = req.params.id;
+  User.getUserPosts(userId)
+  .then((post)=>{
+    res.status(200).json(post)
+  })
+.catch((err)=>{
+  res.status(500).json({errorMessage: "sorry, error in getting post."})
+})
 });
 
-router.delete('/:id', (req, res) => {
+//DELETE request- delete by user id
+router.delete('/:id', validateUserId, (req, res) => {
   // do your magic!
+  User.remove(req.params.id)
+  .then((user)=>{
+    res.status(200).json(user);
+  })
+  .catch((err)=>{
+    res.status(500).json({errorMessage: "failed to remove item."})
+  })
 });
 
-router.put('/:id', (req, res) => {
+//PUT request - update user by id
+router.put('/:id', validateUserId,validateUser, (req, res) => {
   // do your magic!
+  const { id } = req.params;
+  User.update(id, req.body)
+  .then((user)=>{
+    res.status(200).json(user)
+  })
+  .catch((err)=>{
+    res.status(500).json({errorMessage: "error in updating the user."})
+  })
 });
 
 //custom middleware
