@@ -1,11 +1,19 @@
 const express = require('express');
 
 const User = require('./userDb');
-
+const Post = require("../posts/postDb");
 const router = express.Router();
 
 router.post('/', (req, res) => {
   // do your magic!
+
+  User.insert(req.body)
+  .then((user)=>{
+    res.status(201).json(user)
+  })
+  .catch((err)=>{
+    res.status(400).json({errorMessage: "There was a problem adding the user."})
+  })
 });
 
 router.post('/:id/posts', (req, res) => {

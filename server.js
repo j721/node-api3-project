@@ -9,7 +9,7 @@ server.get('/', (req, res) => {
 //custom middleware
 
 function logger(req, res, next) {
-  console.log(`${req.method} from ${req.originalUrl} at ${new Date()}`)
+  console.log(`${req.method} from ${req.originalUrl} at ${new Date().toISOString()}`)
   next();
 }
 
