@@ -45,7 +45,8 @@ router.get('/', (req, res) => {
 //GET REQUEST - get user by id
 router.get('/:id', validateUserId, (req, res) => {
   // do your magic!
-  User.get()
+  const id = req.params.id
+  User.getById(id)
   .then(users=>{
     res.status(200).json(users)
   })
@@ -54,7 +55,7 @@ router.get('/:id', validateUserId, (req, res) => {
   })
 });
 
-//GET request - get posts by user id
+//GET request - get posts from specific user id
 router.get('/:id/posts', validateUserId, (req, res) => {
   // do your magic!
   const userId = req.params.id;
