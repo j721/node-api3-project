@@ -35,7 +35,7 @@ router.delete('/:id', validatePostId, (req, res) => {
 });
 
 //PUT request- update post by id
-router.put('/:id', validatePostId, (req, res) => {
+router.put('/:id', validatePostId, validatePostId, (req, res) => {
   // do your magic!
   const { id } = req.params;
   Post.update(id, req.body)
